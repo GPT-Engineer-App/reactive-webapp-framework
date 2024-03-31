@@ -3,10 +3,12 @@ import { Box, Flex, VStack, Heading, Avatar, Menu, MenuButton, MenuList, MenuIte
 import { FaHome, FaUser, FaCog, FaSignOutAlt } from "react-icons/fa";
 import Dashboard from "../components/Dashboard";
 
+import { Link } from "react-router-dom";
+
 const menuItems = [
-  { label: "Dashboard", icon: FaHome },
+  { label: "Dashboard", icon: FaHome, link: "/" },
   { label: "Projects", icon: FaHome },
-  { label: "Team", icon: FaHome },
+  { label: "Team", icon: FaHome, link: "/team" },
   { label: "Calendar", icon: FaHome },
   { label: "Documents", icon: FaHome },
   { label: "Reports", icon: FaHome },
@@ -35,7 +37,7 @@ const Index = () => {
         </Heading>
         <VStack align="stretch" spacing={1}>
           {menuItems.map((item, index) => (
-            <Button key={index} leftIcon={<item.icon />} variant="ghost" justifyContent="start" color={colorMode === "dark" ? "white" : "black"} {...commonStyles}>
+            <Button key={index} as={Link} to={item.link || "#"} leftIcon={<item.icon />} variant="ghost" justifyContent="start" color={colorMode === "dark" ? "white" : "black"} {...commonStyles}>
               {item.label}
             </Button>
           ))}
