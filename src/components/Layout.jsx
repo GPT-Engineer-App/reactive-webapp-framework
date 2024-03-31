@@ -1,5 +1,6 @@
-import React from "react";
-import { Box, Flex, VStack, Heading, Avatar, Menu, MenuButton, MenuList, MenuItem, Button, useColorMode } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Box, Flex, VStack, Heading, Avatar, Menu, MenuButton, MenuList, MenuItem, Button, useColorMode, IconButton, useMediaQuery, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton } from "@chakra-ui/react";
+import { FaBars } from "react-icons/fa";
 import { FaHome, FaUser, FaCog, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -18,6 +19,8 @@ const menuItems = [
 
 const Layout = ({ children }) => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
   const commonStyles = {
     px: 4,
@@ -29,18 +32,40 @@ const Layout = ({ children }) => {
   return (
     <Flex h="100vh" bg={colorMode === "light" ? "white" : "gray.800"}>
       {}
-      <Box w="250px" bg={colorMode === "dark" ? "gray.700" : "gray.50"} p={4}>
-        <Heading size="md" mb={8} color={colorMode === "dark" ? "white" : "black"}>
-          My App
-        </Heading>
-        <VStack align="stretch" spacing={1}>
-          {menuItems.map((item, index) => (
-            <Button key={index} as={Link} to={item.link || "#"} leftIcon={<item.icon />} variant="ghost" justifyContent="start" color={colorMode === "dark" ? "white" : "black"} {...commonStyles}>
-              {item.label}
-            </Button>
-          ))}
-        </VStack>
-      </Box>
+      {!isLargerThan768 ? (
+        <IconButton aria-label="Open menu" icon={<FaBars />} onClick={() => setIsMobileNavOpen(!isMobileNavOpen)} size="lg" mr={2} />
+      ) : (
+        <Box w="250px" bg={colorMode === "dark" ? "gray.700" : "gray.50"} p={4}>
+          <Heading size="md" mb={8} color={colorMode === "dark" ? "white" : "black"}>
+            My App
+          </Heading>
+          <VStack align="stretch" spacing={1}>
+            {menuItems.map((item, index) => (
+              <Button key={index} as={Link} to={item.link || "#"} leftIcon={<item.icon />} variant="ghost" justifyContent="start" color={colorMode === "dark" ? "white" : "black"} {...commonStyles}>
+                {item.label}
+              </Button>
+            ))}
+          </VStack>
+        </Box>
+      )}
+
+      <Drawer isOpen={isMobileNavOpen} placement="left" onClose={() => setIsMobileNavOpen(false)}>
+        <DrawerOverlay>
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader bg={colorMode === "dark" ? "gray.700" : "gray.50"}>My App</DrawerHeader>
+            <DrawerBody>
+              <VStack align="stretch" spacing={1}>
+                {menuItems.map((item, index) => (
+                  <Button key={index} as={Link} to={item.link || "#"} leftIcon={<item.icon />} variant="ghost" justifyContent="start" color={colorMode === "dark" ? "white" : "black"} {...commonStyles}>
+                    {item.label}
+                  </Button>
+                ))}
+              </VStack>
+            </DrawerBody>
+          </DrawerContent>
+        </DrawerOverlay>
+      </Drawer>
 
       {}
       <Box flex={1} p={8}>
