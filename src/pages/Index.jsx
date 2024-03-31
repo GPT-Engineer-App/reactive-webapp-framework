@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Flex, VStack, Heading, Text, Avatar, Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Box, Flex, VStack, Heading, Text, Avatar, Menu, MenuButton, MenuList, MenuItem, Button, useColorMode } from "@chakra-ui/react";
 import { FaHome, FaUser, FaCog, FaSignOutAlt } from "react-icons/fa";
 import Dashboard from "../components/Dashboard";
 
@@ -24,8 +24,10 @@ const Index = () => {
     _hover: { bg: "gray.100" },
   };
 
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
-    <Flex h="100vh">
+    <Flex h="100vh" bg={colorMode === "light" ? "white" : "gray.800"}>
       {/* Left Navigation */}
       <Box w="250px" bg="gray.50" p={4}>
         <Heading size="md" mb={8}>
@@ -55,6 +57,9 @@ const Index = () => {
               </MenuItem>
               <MenuItem icon={<FaSignOutAlt />} {...commonStyles}>
                 Logout
+              </MenuItem>
+              <MenuItem onClick={toggleColorMode} {...commonStyles}>
+                {colorMode === "light" ? "Dark Mode" : "Light Mode"}
               </MenuItem>
             </MenuList>
           </Menu>
