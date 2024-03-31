@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const menuItems = [
   { label: "Dashboard", icon: FaHome, link: "/" },
-  { label: "Projects", icon: FaHome, link: "/projects" },
+  { label: "Projects", icon: FaHome },
   { label: "Team", icon: FaHome, link: "/team" },
   { label: "Calendar", icon: FaHome },
   { label: "Documents", icon: FaHome },

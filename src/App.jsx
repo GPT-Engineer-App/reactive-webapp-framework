@@ -1,9 +1,16 @@
-import React from "react";
-import { Route } from "react-router-dom";
-import Projects from "./components/Projects";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Index from "./pages/Index.jsx";
+import Team from "./pages/Team.jsx";
 
 function App() {
-  return <Route path="/projects" element={<Projects />} />;
+  return (
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Index />} />
+        <Route path="/team" element={<Team />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
