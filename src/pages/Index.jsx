@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Flex, VStack, Heading, Text, Avatar, Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
 import { FaHome, FaUser, FaCog, FaSignOutAlt } from "react-icons/fa";
+import Dashboard from "../components/Dashboard";
 
 const menuItems = [
   { label: "Dashboard", icon: FaHome },
@@ -58,7 +59,7 @@ const Index = () => {
             </MenuList>
           </Menu>
         </Flex>
-        <Text>This is the main content area of the app.</Text>
+        <Dashboard />
       </Box>
     </Flex>
   );
